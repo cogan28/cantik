@@ -133,7 +133,7 @@ const help = (prefix, botname, oname) => {
   ├─ ❏ ${prefix}exe
   ├─ ❏ ${prefix}qrcode
   └─ ❏ ${prefix}fml
-◪ *Style Cogan2*
+◪ *Stell Cogan2*
 `
 }
 
