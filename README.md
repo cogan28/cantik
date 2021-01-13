@@ -39,14 +39,14 @@
 ---
 
 ## Information
-- Change vcard contacts name on [this section](https://github.com/cogan28/cantik/blob/main/index.js#L33)
-- Change vcard bot name on [this section](https://github.com/cogan28/cantik/blob/main/index.js#L34)
-- Change vcard WhatsApp id on [this section](https://github.com/cogan28/cantik/blob/main/index.js#L35)
-- Change vcard WhatsApp number on [this section](https://github.com/cogan28/cantik/blob/main/index.js#L35)
-- Change owner number id on [this section](https://github.com/cogan28/cantik/blob/main/index.js#L153)
-- Change menu bot name on [this section](https://github.com/cogan28/cantik/blob/main/src/help.js#L3)
-- Change menu owner name on [this section](https://github.com/cogan28/cantik/blob/main/src/help.js#L7)
-- Change menu owner name2 on [this section](https://github.com/cogan28/cantik/blob/main/src/help.js#125)
+- Change vcard contacts name on [this section](https://github.com/NazwaS/termux-whatsapp-bot/blob/main/index.js#L33)
+- Change vcard bot name on [this section](https://github.com/NazwaS/termux-whatsapp-bot/blob/main/index.js#L34)
+- Change vcard WhatsApp id on [this section](https://github.com/NazwaS/termux-whatsapp-bot/blob/main/index.js#L35)
+- Change vcard WhatsApp number on [this section](https://github.com/NazwaS/termux-whatsapp-bot/blob/main/index.js#L35)
+- Change owner number id on [this section](https://github.com/NazwaS/termux-whatsapp-bot/blob/main/index.js#L153)
+- Change menu bot name on [this section](https://github.com/NazwaS/termux-whatsapp-bot/blob/main/src/help.js#L3)
+- Change menu owner name on [this section](https://github.com/NazwaS/termux-whatsapp-bot/blob/main/src/help.js#L7)
+- Change menu owner name2 on [this section](https://github.com/NazwaS/termux-whatsapp-bot/blob/main/src/help.js#125)
 
 ---
 
@@ -57,8 +57,8 @@ Follow The Steps Below!
 > termux-setup-storage
 (after that tap on permission)
 > apt install git -y
-> git clone https://github.com/cogan28/cantik
-> cd cantik
+> git clone https://github.com/NazwaS/termux-whatsapp-bot
+> cd termux-whatsapp-bot
 > bash install.sh
 ```
 
@@ -84,7 +84,7 @@ Follow The Steps Below!
 | 3D Text Maker|✅|
 | Quote Maker|✅|
 | Water Maker|✅|
-| Fire Text Maker
+| Fire Text Maker|✅|
 | Marvel Logo Maker|✅|
 | Snow Write Maker|✅|
 | Ninja Logo Maker|✅|
@@ -170,6 +170,8 @@ Follow The Steps Below!
 | Random Shota|✅|
 | Random Waifu|✅|
 | Random Anime|✅|
+| Random Husbu|✅|
+| Random Husbu2|✅|
 
 | FUN | YES |
 | :-----------------: | :-------: |

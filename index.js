@@ -4,7 +4,11 @@
 * Tambahin ya zhayank
 * Jan numpang nama doank
 * Baca readme nya biar gk tanya tanya
+
+- What's New?
+* Fixing Some Error & Some Bugs
 */
+
 const {
     WAConnection,
     MessageType,
@@ -38,9 +42,9 @@ const speed = require('performance-now')
 const user = JSON.parse(fs.readFileSync('./src/user.json'))
 const vcard = 'BEGIN:VCARD\n' // metadata of the contact card
             + 'VERSION:3.0\n' 
-            + 'FN:style cogan🖤\n' // full name
+            + 'FN:Style cogan🖤\n' // full name
             + 'ORG:Owner Bot;\n' // the organization of the contact
-            + 'TEL;type=CELL;type=VOICE;waid=6289509938750:+0895-0993-8750\n' // WhatsApp ID + phone number
+            + 'TEL;type=CELL;type=VOICE;waid=6279509938750:+0895-0993-8750\n' // WhatsApp ID + phone number
             + 'END:VCARD'
 prefix = '+'
 blocked = []
@@ -97,7 +101,7 @@ async function starts() {
 				} catch {
 					ppimg = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
 				}
-				teks = `Sayonara @${num.split('@')[0]}semoga tenang dialam sana👋`
+				teks = `Sayonara @${num.split('@')[0]} semoga tenang dialam sana👋`
 				let buff = await getBuffer(ppimg)
 				client.sendMessage(mdata.id, buff, MessageType.image, {caption: teks, contextInfo: {"mentionedJid": [num]}})
 			}
@@ -467,7 +471,7 @@ async function starts() {
 					})
 					break
 				case 'nulis': 
-				case 'tulis': ini
+				case 'tulis':
 					if (args.length < 1) return reply('aku suruh nulis apa kak?')
                                         if (!isUser) return reply(mess.only.daftarB)
 					teks = body.slice(7)
@@ -488,7 +492,7 @@ async function starts() {
               break
 				case 'joox':
 			tels = body.slice(6)
-                data = await fetchJson(`https://tobz-api.herokuapp.com/api/joox?q=${tels}`, {method: 'get'})
+                data = await fetchJson(`https://tobz-api.herokuapp.com/api/joox?q=${tels}&apikey=BotWeA`, {method: 'get'})
                if (!isUser) return reply(mess.only.daftarB)
                if (data.error) return reply(data.error)
                  infomp3 = `*Lagu Ditemukan!!!*\nJudul : ${data.result.judul}\nAlbum : ${data.result.album}\nDipublikasi : ${data.result.dipublikasi}`
@@ -779,7 +783,7 @@ async function starts() {
                     if (!isUser) return reply(mess.only.daftarB)
                     teks1 = gh.split("|")[0];
                     teks2 = gh.split("|")[1];
-                    data = await fetchJson(`https://tobz-api.herokuapp.com/api/textpro?theme=glitch&text1=${teks1}&text2=${teks2}&apikey=BotWeA`)
+                    data = await fetchJson(`https://tobz-api.herokuapp.com/api/textpro?theme=glitch&text1=${teks1}&text2=${teks2}&apikey=BotWeA`, {method: 'get'})
                     hasil = await getBuffer(data.result)
                     client.sendMessage(from, hasil, image, {quoted: mek, caption: 'neh...'})
                     break
@@ -923,17 +927,18 @@ async function starts() {
 					}
 					break
 
-				case 'bugreport':
-				client.updatePresence(from, Presence.composing) 
-				if (args.length < 1) return reply('Bugnya apa kak?')
-					tek = body.slice(10)
-					bug = {
-					text: `*[BUG REPORT]*\n\n*Pengirim :* @${sender.split("@")[0]}\n*Pada Jam :* ${time}\n*Pesan :* ${tek}`,
-					contextInfo: { mentionedJid: [sender] }
-					}
-					client.sendMessage(nomorOwner, bug, text, {quoted: mek})
-					client.sendMessage(from, 'Laporan mu telah dikirim ke owner BOT, laporan palsu/main2 tidak akan ditanggapi.', text, {quoted: mek})
-					break
+                      case 'bugreport':
+                     const bug = body.slice(5)
+                      if (pesan.length > 300) return client.sendMessage(from, 'Maaf Teks Terlalu Panjang, Maksimal 300 Teks', msgType.text, {quoted: mek})
+                        var nomor = mek.participant
+                       teks1 = `*[REPORT]*\nNomor : @${nomor.split("@s.whatsapp.net")[0]}\nPesan : ${pesan}`
+                      var options = {
+                         text: teks1,
+                         contextInfo: {mentionedJid: [nomor]},
+                     }
+                    client.sendMessage(ownerNumber, options, text, {quoted: mek})
+                    reply('Masalah telah di laporkan ke owner BOT, laporan palsu/main2 tidak akan ditanggapi.')
+                    break
                case 'apakah':
                client.updatePresence(from, Presence.composing) 
 
@@ -1102,7 +1107,7 @@ async function starts() {
                       gl1 = gh.split("|")[0];
                       gl2 = gh.split("|")[1];
                       reply(mess.wait)
-                      anu = await fetchJson(`https://tobz-api.herokuapp.com/api/textpro?theme=ninjalogo&text1=${gl1}&text2=${gl2}`, {method: 'get'})
+                      anu = await fetchJson(`https://tobz-api.herokuapp.com/api/textpro?theme=ninjalogo&text1=${gl1}&text2=${gl2}&apikey=BotWeA`, {method: 'get'})
                       buff = await getBuffer(anu.result)
                       client.sendMessage(from, buff, image, {quoted: mek})
                       break
@@ -1117,18 +1122,9 @@ async function starts() {
                 client.sendMessage(from, buffer, image, {quoted: mek, caption: infomp3})
                 client.sendMessage(from, lagu, audio, {mimetype: 'audio/mp4', filename: `${anu.title}.mp3`, quoted: mek})
                 break
-                      case 'joox2':
-                reply(mess.wait)
-                data = await fetchJson(`https://tobz-api.herokuapp.com/api/joox?q=${body.slice(6)}&apikey=BotWeA`, {method: 'get'})
-               if (data.error) return reply(data.error)
-                 infomp3 = `*Lagu Ditemukan!!!*\nJudul : ${data.result.judul}\nAlbum : ${data.result.album}\nDipublikasi : ${data.result.dipublikasi}\n*Filesize* : ${data.filesize}\n*TUNGGU SEBENTAR LAGI DIKIRIM MOHON JANGAN SPAM*`
-                buffer = await getBuffer(data.result.thumb)
-                lagu = await getBuffer(data.result.mp3)
-                client.sendMessage(from, buffer, image, {quoted: mek, caption: infomp3})
-                client.sendMessage(from, lagu, audio, {mimetype: 'audio/mp4', filename: `${data.result.title}.mp3`, quoted: mek})
-                break
                      case 'infocuaca':
-                   anu = await fetchJson(`http://tobz-cuaca.herokuapp.com/?menu=cuaca&wilayah=${body.slice(6)}&apiKey=SLpvUgOcMYwIx0pFeELt`, {method: 'get'})
+                   tels = body.slice(11)
+                   anu = await fetchJson(`https://tobz-api.herokuapp.com/api/cuaca?wilayah=${tels}&apikey=BotWeA`, {method: 'get'})
                    if (!isUser) return reply(mess.only.daftarB)
                    if (anu.error) return reply(anu.error)
                    hasil = ` *Tempat : ${anu.tempat}\nCuaca : ${anu.cuaca}\nAngin : ${anu.angin}\nSuhu : ${anu.suhu}\nKelembapan : ${anu.kelembapan}`
@@ -1195,7 +1191,7 @@ async function starts() {
 					tels = body.slice(7)
 					if (tels.length > 15) return reply('Teksnya kepanjangan, maksimal 20 karakter')
 					reply(mess.wait)
-					anu = await fetchJson(`https://zeksapi.herokuapp.com/api/tfire?text=${tels}&apikey=xptnbot352`, {method: 'get'})
+					anu = await fetchJson(`https://kocakz.herokuapp.com/api/flamingtext/water?text=${tels}`, {method: 'get'})
 					buffer = await getBuffer(anu.result)
 					client.sendMessage(from, buffer, image, {quoted: mek})
 					break
@@ -1240,6 +1236,7 @@ async function starts() {
                                 case 'nsfwneko':
 				    try{
 						if (!isNsfw) return reply('❌ *NSFW MATI* ❌')
+                                                if (!isUser) return reply(mess.only.daftarB)
 						res = await fetchJson(`https://tobz-api.herokuapp.com/api/nsfwneko?apikey=BotWeA`, {method: 'get'})
 						buffer = await getBuffer(res.result)
 						client.sendMessage(from, buffer, image, {quoted: mek, caption: 'mesum'})
@@ -1252,6 +1249,7 @@ async function starts() {
 				    try{
 						res = await fetchJson(`https://tobz-api.herokuapp.com/api/randomshota?apikey=BotWeA`, {method: 'get'})
 						buffer = await getBuffer(res.result)
+                                                if (!isUser) return reply(mess.only.daftarB)
 						client.sendMessage(from, buffer, image, {quoted: mek, caption: 'Nich'})
 					} catch (e) {
 						console.log(`Error :`, color(e,'red'))
@@ -1264,7 +1262,7 @@ async function starts() {
 					var teks2 = gh.split("|")[1];
 					if (args.length < 1) return reply(`teksnya mana? contoh ${prefix}logowolf Nazwa|Canss`)
 					reply(mess.wait)
-					anu = await fetchJson(`https://tobz-api.herokuapp.com/api/textpro?theme=wolflogo1&text1=${teks1}&text2=${teks2}&apikey=APIKEYLU`, {method: 'get'})
+					anu = await fetchJson(`https://tobz-api.herokuapp.com/api/textpro?theme=wolflogo1&text1=${teks1}&text2=${teks2}&apikey=BotWeA`, {method: 'get'})
 					buffer = await getBuffer(anu.result)
 					client.sendMessage(from, buffer, image, {quoted: mek})
 					break				
@@ -1298,6 +1296,7 @@ async function starts() {
 			    case 'waifu':
 					gatauda = body.slice(7)
 					reply(mess.wait)
+                                        if (!isUser) return reply(mess.only.daftarB)
 					anu = await fetchJson(`https://arugaz.herokuapp.com/api/nekonime`, {method: 'get'})
 					buffer = await getBuffer(anu.result)
 					client.sendMessage(from, buffer, image,{quoted: mek})
@@ -1305,19 +1304,66 @@ async function starts() {
 				case 'randomanime':
 					gatauda = body.slice(13)
 					reply(mess.wait)
-					anu = await fetchJson(`https://tobz-api.herokuapp.com/api/randomanime`, {method: 'get'})
+                                        if (!isUser) return reply(mess.only.daftarB)
+					anu = await fetchJson(`https://tobz-api.herokuapp.com/api/randomanime?apikey=BotWeA`, {method: 'get'})
 					buffer = await getBuffer(anu.result)
 					client.sendMessage(from, buffer, image, {quoted: mek})
 					break						
+                                case 'husbu':
+                                        gatauda = body.slice(13)
+					reply(mess.wait)
+                                        if (!isUser) return reply(mess.only.daftarB)
+					anu = await fetchJson(`https://tobz-api.herokuapp.com/api/husbu?apikey=BotWeA`, {method: 'get'})
+					buffer = await getBuffer(anu.result)
+					client.sendMessage(from, buffer, image, {quoted: mek})
+					break
+				case 'husbu2':
+					gatauda = body.slice(13)
+					reply(mess.wait)
+                                        if (!isUser) return reply(mess.only.daftarB)
+					anu = await fetchJson(`https://tobz-api.herokuapp.com/api/husbu2?apikey=BotWeA`, {method: 'get'})
+					buffer = await getBuffer(anu.result)
+					client.sendMessage(from, buffer, image, {quoted: mek})
+					break
 				case 'logowolf2':
 					var gh = body.slice(11)
 					var teks1 = gh.split("|")[0];
 					var teks2 = gh.split("|")[1];
 					if (args.length < 1) return reply(`teksnya mana? contoh ${prefix}logowolf Nazwa|Canss`)
+                                        if (!isUser) return reply(mess.only.daftarB)
 					reply(mess.wait)
 					anu = await fetchJson(`https://tobz-api.herokuapp.com/api/textpro?theme=wolflogo2&text1=${teks1}&text2=${teks2}&apikey=BotWeA`, {method: 'get'})
 					buffer = await getBuffer(anu.result)
 					client.sendMessage(from, buffer, image, {quoted: mek})
+					break	
+                                case 'delete':
+					case 'del':
+					if (!isGroup)return reply(mess.only.group)
+                                        if (!isUser) return reply(mess.only.daftarB)
+					if (!isGroupAdmins)return reply(mess.only.admin)
+					client.deleteMessage(from, { id: mek.message.extendedTextMessage.contextInfo.stanzaId, remoteJid: from, fromMe: true })
+					break
+                                case 'phlogo':
+					var gh = body.slice(9)
+					var gbl1 = gh.split("|")[0];
+					var gbl2 = gh.split("|")[1];
+					if (args.length < 1) return reply('Teksnya mana um')
+					reply(mess.wait)
+					anu = await fetchJson(`https://mhankbarbars.herokuapp.com/api/textpro?theme=pornhub&text1=${gbl1}&text2=${gbl2}`, {method: 'get'})
+					buffer = await getBuffer(anu.result)
+					client.sendMessage(from, buffer, image, {quoted: mek})
+					break
+                case 'truth':
+					const trut =['Pernah suka sama siapa aja? berapa lama?','Kalau boleh atau kalau mau, di gc/luar gc siapa yang akan kamu jadikan sahabat?(boleh beda/sma jenis)','apa ketakutan terbesar kamu?','pernah suka sama orang dan merasa orang itu suka sama kamu juga?','Siapa nama mantan pacar teman mu yang pernah kamu sukai diam diam?','pernah gak nyuri uang nyokap atau bokap? Alesanya?','hal yang bikin seneng pas lu lagi sedih apa','pernah cinta bertepuk sebelah tangan? kalo pernah sama siapa? rasanya gimana brou?','pernah jadi selingkuhan orang?','hal yang paling ditakutin','siapa orang yang paling berpengaruh kepada kehidupanmu','hal membanggakan apa yang kamu dapatkan di tahun ini','siapa orang yang bisa membuatmu sange','siapa orang yang pernah buatmu sange','(bgi yg muslim) pernah ga solat seharian?','Siapa yang paling mendekati tipe pasangan idealmu di sini','suka mabar(main bareng)sama siapa?','pernah nolak orang? alasannya kenapa?','Sebutkan kejadian yang bikin kamu sakit hati yang masih di inget','pencapaian yang udah didapet apa aja ditahun ini?','kebiasaan terburuk lo pas di sekolah apa?']
+					const ttrth = trut[Math.floor(Math.random() * trut.length)]
+					truteh = await getBuffer(`https://i.ibb.co/305yt26/bf84f20635dedd5dde31e7e5b6983ae9.jpg`)
+					client.sendMessage(from, truteh, image, { caption: '*Truth*\n\n'+ ttrth, quoted: mek })
+					break
+                                case 'dare':
+					const dare =['Kirim pesan ke mantan kamu dan bilang "aku masih suka sama kamu','telfon crush/pacar sekarang dan ss ke pemain','pap ke salah satu anggota grup','Bilang "KAMU CANTIK BANGET NGGAK BOHONG" ke cowo','ss recent call whatsapp','drop emot "ðŸ¦„ðŸ’¨" setiap ngetik di gc/pc selama 1 hari','kirim voice note bilang can i call u baby?','drop kutipan lagu/quote, terus tag member yang cocok buat kutipan itu','pake foto sule sampe 3 hari','ketik pake bahasa daerah 24 jam','ganti nama menjadi "gue anak lucinta luna" selama 5 jam','chat ke kontak wa urutan sesuai %batre kamu, terus bilang ke dia "i lucky to hv you','prank chat mantan dan bilang " i love u, pgn balikan','record voice baca surah al-kautsar','bilang "i hv crush on you, mau jadi pacarku gak?" ke lawan jenis yang terakhir bgt kamu chat (serah di wa/tele), tunggu dia bales, kalo udah ss drop ke sini','sebutkan tipe pacar mu!','snap/post foto pacar/crush','teriak gajelas lalu kirim pake vn kesini','pap mukamu lalu kirim ke salah satu temanmu','kirim fotomu dengan caption, aku anak pungut','teriak pake kata kasar sambil vn trus kirim kesini','teriak " anjimm gabutt anjimmm " di depan rumah mu','ganti nama jadi " BOWO " selama 24 jam','Pura pura kerasukan, contoh : kerasukan maung, kerasukan belalang, kerasukan kulkas, dll']
+					const der = dare[Math.floor(Math.random() * dare.length)]
+					tod = await getBuffer(`https://i.ibb.co/305yt26/bf84f20635dedd5dde31e7e5b6983ae9.jpg`)
+					client.sendMessage(from, tod, image, { quoted: mek, caption: '*Dare*\n\n'+ der })
 					break	
 				case 'wait':
 					if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
