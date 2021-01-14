@@ -6,7 +6,7 @@
 * Baca readme nya biar gk tanya tanya
 
 - What's New?
-* Fixing Some Error & Some Bugs
+* Fix Errors
 */
 
 const {
@@ -16,14 +16,18 @@ const {
     Mimetype,
     GroupSettingChange
 } = require('@adiwajshing/baileys')
+
+/******BEGIN OF FILE INPUT******/
 const { color, bgcolor } = require('./lib/color')
-const { help } = require('./src/help')
 const { bahasa } = require('./src/bahasa')
 const { negara } = require('./src/kodenegara')
 const { virtex } = require('./src/virtex')
 const { wait, simih, getBuffer, h2k, generateMessageID, getGroupAdmins, getRandom, banner, start, info, success, close } = require('./lib/functions')
 const { fetchJson } = require('./lib/fetcher')
 const { recognize } = require('./lib/ocr')
+/******END OF FILE INPUT******/
+
+/******BEGIN OF NPM PACKAGE INPUT******/
 const fs = require('fs')
 const moment = require('moment-timezone')
 const { exec } = require('child_process')
@@ -35,19 +39,119 @@ const { removeBackgroundFromImageFile } = require('remove.bg')
 const imgbb = require('imgbb-uploader')
 const lolis = require('lolis.life')
 const loli = new lolis()
+const speed = require('performance-now')
+/******END OF NPM PACKAGE INPUT******/
+
+/******BEGIN OF JSON INPUT******/
 const welkom = JSON.parse(fs.readFileSync('./src/welkom.json'))
 const nsfw = JSON.parse(fs.readFileSync('./src/nsfw.json'))
 const samih = JSON.parse(fs.readFileSync('./src/simi.json'))
-const speed = require('performance-now')
 const user = JSON.parse(fs.readFileSync('./src/user.json'))
+const _leveling = JSON.parse(fs.readFileSync('./src/leveling.json'))
+const _level = JSON.parse(fs.readFileSync('./src/level.json'))
+/******END OF JSON INPUT******/
+
+/******LOAD OF MENU INPUT******/
+const { help } = require('./src/help')
+//const { makermenu } = require('./database/menu/makermenu')
+//const { mediamenu } = require('./database/menu/mediamenu')
+//const { educationmenu } = require('./database/menu/educationmenu')
+//const { downloadermenu } = require('./database/menu/downloadermenu')
+//const { mememenu } = require('./database/menu/mememenu')
+//const { kerangmenu } = require('./database/menu/kerangmenu')
+//const { groupmenu } = require('./database/menu/groupmenu')
+//const { soundmenu } = require('./database/menu/soundmenu')
+//const { musicmenu } = require('./database/menu/musicmenu')
+//const { islammenu } = require('./database/menu/islammenu')
+//const { stalkmenu } = require('./database/menu/stalkmenu')
+//const { wibumenu } = require('./database/menu/wibumenu')
+//const { funmenu } = require('./database/menu/funmenu')
+//const { informationmenu } = require('./database/menu/informationmenu')
+//const { 18+menu } require('./database/menu/18+menu')
+//const { ownermenu } require('./database/menu/ownermenu')
+//const { othermenu } require('./database/menu/othermenu')
+/******END OF MENU INPUT******/
+
+/******LOAD OF VCARD INPUT******/
 const vcard = 'BEGIN:VCARD\n' // metadata of the contact card
             + 'VERSION:3.0\n' 
-            + 'FN:Style cogan🖤\n' // full name
+            + 'FN:StyleCogan🖤\n' // full name
             + 'ORG:Owner Bot;\n' // the organization of the contact
-            + 'TEL;type=CELL;type=VOICE;waid=6279509938750:+0895-0993-8750\n' // WhatsApp ID + phone number
+            + 'TEL;type=CELL;type=VOICE;waid=6289509938750:+0895-0993-8750\n' // WhatsApp ID + phone number
             + 'END:VCARD'
+/******END OF VCARD INPUT******/
+
 prefix = '+'
 blocked = []
+
+/******BEGIN OF FUNCTIONS INPUT******/
+const getLevelingXp = (userId) => {
+            let position = false
+            Object.keys(_level).forEach((i) => {
+                if (_level[i].jid === userId) {
+                    position = i
+                }
+            })
+            if (position !== false) {
+                return _level[position].xp
+            }
+        }
+
+        const getLevelingLevel = (userId) => {
+            let position = false
+            Object.keys(_level).forEach((i) => {
+                if (_level[i].jid === userId) {
+                    position = i
+                }
+            })
+            if (position !== false) {
+                return _level[position].level
+            }
+        }
+
+        const getLevelingId = (userId) => {
+            let position = false
+            Object.keys(_level).forEach((i) => {
+                if (_level[i].jid === userId) {
+                    position = i
+                }
+            })
+            if (position !== false) {
+                return _level[position].jid
+            }
+        }
+
+        const addLevelingXp = (userId, amount) => {
+            let position = false
+            Object.keys(_level).forEach((i) => {
+                if (_level[i].jid === userId) {
+                    position = i
+                }
+            })
+            if (position !== false) {
+                _level[position].xp += amount
+                fs.writeFileSync('./src/level.json', JSON.stringify(_level))
+            }
+        }
+
+        const addLevelingLevel = (userId, amount) => {
+            let position = false
+            Object.keys(_level).forEach((i) => {
+                if (_level[i].jid === userId) {
+                    position = i
+                }
+            })
+            if (position !== false) {
+                _level[position].level += amount
+                fs.writeFileSync('./src/level.json', JSON.stringify(_level))
+            }
+        }
+
+        const addLevelingId = (userId) => {
+            const obj = {jid: userId, xp: 1, level: 1}
+            _level.push(obj)
+            fs.writeFileSync('./src/level.json', JSON.stringify(_level))
+        }
 
 function kyun(seconds){
   function pad(s){
@@ -101,7 +205,7 @@ async function starts() {
 				} catch {
 					ppimg = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
 				}
-				teks = `Sayonara @${num.split('@')[0]} semoga tenang dialam sana👋`
+				teks = `Sayonara @${num.split('@')[0]}👋`
 				let buff = await getBuffer(ppimg)
 				client.sendMessage(mdata.id, buff, MessageType.image, {caption: teks, contextInfo: {"mentionedJid": [num]}})
 			}
@@ -141,6 +245,10 @@ async function starts() {
 			mess = {
 				wait: '⌛ Sedang di Prosess ⌛',
 				success: '✔️ Berhasil ✔️',
+                                levelon: '❬ ✔ ❭ *enable leveling*',
+				leveloff: ' ❬ X ❭  *disable leveling*',
+				levelnoton: '❬ X ❭ *leveling not aktif*',
+				levelnol: '*LEVEL KAKAK MASIH* 0 °-°',
 				error: {
 					stick: '[❗] Gagal, terjadi kesalahan saat mengkonversi gambar ke sticker ❌',
 					Iv: '❌ Link tidak valid ❌'
@@ -175,6 +283,7 @@ async function starts() {
 			const isSimi = isGroup ? samih.includes(from) : false
 			const isOwner = ownerNumber.includes(sender)
                         const isUser = user.includes(sender)
+                        const isLevelingOn = isGroup ? _leveling.includes(groupId) : false
 
 			const isUrl = (url) => {
 			    return url.match(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/, 'gi'))
@@ -189,6 +298,25 @@ async function starts() {
 				(id == null || id == undefined || id == false) ? client.sendMessage(from, teks.trim(), extendedText, {contextInfo: {"mentionedJid": memberr}}) : client.sendMessage(from, teks.trim(), extendedText, {quoted: mek, contextInfo: {"mentionedJid": memberr}})
 			}
 
+	        //function leveling
+            if (isGroup && isLevelingOn) {
+            const currentLevel = getLevelingLevel(sender)
+            const checkId = getLevelingId(sender)
+            try {
+                if (currentLevel === undefined && checkId === undefined) addLevelingId(sender)
+                const amountXp = Math.floor(Math.random() * 10) + 500
+                const requiredXp = 5000 * (Math.pow(2, currentLevel) - 1)
+                const getLevel = getLevelingLevel(sender)
+                addLevelingXp(sender, amountXp)
+                if (requiredXp <= getLevelingXp(sender)) {
+                    addLevelingLevel(sender, 1)
+                    await reply(`*「 LEVEL UP 」*\n\n➸ *Name*: ${sender}\n➸ *XP*: ${getLevelingXp(sender)}\n➸ *Level*: ${getLevel} -> ${getLevelingLevel(sender)}\n\nCongrats!! 🎉🎉`)
+                }
+            } catch (err) {
+                console.error(err)
+            }
+        }
+
 			colors = ['red','white','black','blue','yellow','green']
 			const isMedia = (type === 'imageMessage' || type === 'videoMessage')
 			const isQuotedImage = type === 'extendedTextMessage' && content.includes('imageMessage')
@@ -198,12 +326,18 @@ async function starts() {
 			if (!isGroup && !isCmd) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;31mRECV\x1b[1;37m]', time, color('Message'), 'from', color(sender.split('@')[0]), 'args :', color(args.length))
 			if (isCmd && isGroup) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32mEXEC\x1b[1;37m]', time, color(command), 'from', color(sender.split('@')[0]), 'in', color(groupName), 'args :', color(args.length))
 			if (!isCmd && isGroup) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;31mRECV\x1b[1;37m]', time, color('Message'), 'from', color(sender.split('@')[0]), 'in', color(groupName), 'args :', color(args.length))
+ 
+       /******END OF FUNCTIONS INPUT******/
 			switch(command) {
 				case 'help':
 				case 'menu':
 					hisil = fs.readFileSync('./assets/menuimg.jpg')
 					client.sendMessage(from, hisil, image, {quoted: mek, caption: help(prefix), text})
 					break
+                                /*case 'makermenu':
+                                        hisil = fs.readFileSync('./src/makerimg.jpg')
+                                        client.sendMessage(from, hisil, image, {quoted: mek, caption: makermenu(prefix), text
+                                        break*/
                 case 'bahasa':
 		client.sendMessage(from, bahasa(prefix, sender), text, {quoted: mek})
                 break
@@ -1347,7 +1481,7 @@ async function starts() {
 					var gh = body.slice(9)
 					var gbl1 = gh.split("|")[0];
 					var gbl2 = gh.split("|")[1];
-					if (args.length < 1) return reply('Teksnya mana um')
+					if (args.length < 1) return reply('Teksnya mana um\nContoh: ${prefix}phlogo |Nazwa|Canss')
 					reply(mess.wait)
 					anu = await fetchJson(`https://mhankbarbars.herokuapp.com/api/textpro?theme=pornhub&text1=${gbl1}&text2=${gbl2}`, {method: 'get'})
 					buffer = await getBuffer(anu.result)
@@ -1365,6 +1499,111 @@ async function starts() {
 					tod = await getBuffer(`https://i.ibb.co/305yt26/bf84f20635dedd5dde31e7e5b6983ae9.jpg`)
 					client.sendMessage(from, tod, image, { quoted: mek, caption: '*Dare*\n\n'+ der })
 					break	
+                case 'level':
+                if (!isLevelingOn) return reply(mess.levelnoton)
+                if (!isGroup) return reply(mess.only.group)
+                const userLevel = getLevelingLevel(sender)
+                const userXp = getLevelingXp(sender)
+                if (userLevel === undefined && userXp === undefined) return reply(mess.levelnol)
+                sem = sender.replace('@s.whatsapp.net','')
+                resul = `◪ *LEVEL*\n  ├─ ❏ *Name* : ${sem}\n  ├─ ❏ *User XP* : ${userXp}\n  └─ ❏ *User Level* : ${userLevel}`
+               client.sendMessage(from, resul, text, { quoted: mek})
+                .catch(async (err) => {
+                        console.error(err)
+                        await reply(`Error!\n${err}`)
+                    })
+            break
+				case 'fitnah':	
+				case 'fake':          
+               if (!isGroup) return reply(mess.only.group)
+                arg = body.substring(body.indexOf(' ') + 1)
+				isi = arg.split(' |')[0] 
+				pesan = arg.split('|')[1] 
+				pesan2 = arg.split('|')[2] 
+                reply(pesan, isi, pesan2)
+                break
+                case 'leveling':
+                if (!isGroup) return reply(mess.only.group)
+                if (!isGroupAdmins) return reply(mess.only.admin)
+                if (args.length < 1) return reply('Ketik 1 untuk mengaktifkan fitur')
+                if (args[0] === '1') {
+                    if (isLevelingOn) return reply('*fitur level sudah aktif sebelum nya*')
+                    _leveling.push(groupId)
+                    fs.writeFileSync('./database/group/leveling.json', JSON.stringify(_leveling))
+                     reply(mess.levelon)
+                } else if (args[0] === '0') {
+                    _leveling.splice(groupId, 1)
+                    fs.writeFileSync('./database/group/leveling.json', JSON.stringify(_leveling))
+                     reply(mess.leveloff)
+                } else {
+                    reply(' *Ketik perintah 1 untuk mengaktifkan, 0 untuk menonaktifkan* \n *Contoh: ${prefix}leveling 1*')
+                }
+            break
+                                case 'infogempa':
+                                        anu = await fetchJson(`https://tobz-api.herokuapp.com/api/infogempa?apikey=BotWeA`, {method: 'get'})
+                                        if (!isUser) return reply(mess.only.daftarB)
+                                        if (anu.error) return reply(anu.error)
+                                        hasil = `*Kedalaman* : ${anu.kedalaman}\n*Koordinat* : ${anu.koordinat}\n*Lokasi* : ${anu.lokasi}\n*Magnitude* : ${anu.magnitude}\n*Map* : ${anu.map}\n*Potensi* : ${anu.potensi}\n*Waktu* : ${anu.waktu}`
+                                        client.sendMessage(from, hasil, text, {quoted:mek})
+                                        break
+                                case 'nsfwtrap':
+                                        try{
+                                                if (!isNsfw) return reply('❌ *NSFW MATI* ❌')
+                                                if (!isUser) return reply(mess.only.daftarB)
+                                                res = await fetchJson(`https://tobz-api.herokuapp.com/nsfwtrap?apikey=BotWeA`, {method: 'get'})
+                                                buffer = await getBuffer(res.result)
+                                                client.sendMessage(from, buffer, image, {quoted: mek, caption: 'Nih gambarnya kak...'})
+                                        } catch (e) {
+                                                console.log(`*Error* :`, color(e,'red'))
+                                                reply('❌ *ERROR* ❌')
+                                        }
+                                        break
+                                case 'ping':
+                                        await client.sendMessage(from, `Pong!!!\nSpeed: ${processTime(time, moment())} _Second_`)
+                                        break
+                                case 'neonlogo':
+                                        var gh = body.slice(9)
+                                        var teks1 = gh.split("|")[0];
+                                        if (args.length < 1) return reply('teksnya mana um\nContoh: ${prefix}neonlogo NazwaCanss')
+                                        reply(mess.wait)
+                                        anu = await fetchJson(`https://tobz-api.herokuapp.com/api/textpro?theme=neon_light&text=${teks1}&apikey=BotWeA`, {method: 'get'})
+                                        buffer = await getBuffer(anu.result)
+                                        client.sendMessage(from, buffer, image, {quoted: mek, caption: 'Nih kak logonya...'})
+                                        break
+                                case 'neonlogo2':
+                                        var gh = body.slice(9)
+                                        teks1 = gh.split("|")[0];
+                                        if (args.length < 1) return reply('teksnya mana um\nContoh: ${prefix}neonlogo2 NazwaCanss')
+                                        reply(mess.wait)
+                                        anu = await fetchJson(`https://tobz-api.herokuapp.com/api/textpro?theme=neon_technology&text=${text1}&apikey=BotWeA`, {method: 'get'})
+                                        buffer = await getBuffer(anu.result)
+                                        client.sendMessage(from, buffer, image, {quoted: mek, caption: 'Nih kak logonya...'})
+                                        break
+                                case 'lionlogo':
+                                        var gh = body.slice(11)
+                                        var teks1 = gh.split("|")[0];
+                                        var teks2 = gh.split("|")[1];
+                                        if (args.length < 1) return reply('teksnya mana um\nContoh: ${prefix}lionlogo Nazwa|Canss')
+                                        reply(mess.wait)
+                                        anu = await fetchJson(`https://tobz-api.herokuapp.com/api/textpro?theme=lionlogo&text1=${text1}&text2=${teks2}&apikey=BotWeA`, {method: 'get'})
+                                        buffer = await getBuffer(anu.result)
+                                        client.sendMessage(from, buffer, image, {quoted: mek, caption: 'Nih kak logonya...'})
+                                        break
+                                /*case 'jsholat':
+                                        tels = body.slice(8)
+                                        if (args.length < 1) return reply('Daerahnya dimana kak?')
+                                        anu = await fetchJson(`https://tobz-api.herokuapp.com/api/jadwalshalat?q=${tels}&apikey=BotWeA`, {method: 'get'})
+                                        reply(anu.result)
+                                        break*/
+                                case 'jokerlogo':
+                                        var gh = body.slice(11)
+                                        var teks1 = gh.split("|")[0];
+                                        if (args.length < 1) return reply('teksnya mana um\nContoh: ${prefix}jokerlogo NazwaCanss')
+                                        reply(mess.wait)
+                                        anu = await fetchJson(`https://tobz-api.herokuapp.com/api/textpro?theme=jokerlogo&text=${teks1}&apikey=BotWeA`, {method: 'get'})
+                                        buffer = await getBuffer(anu.result)
+                                        client.sendMessage(from, buffer, image, {quoted: mek, caption: 'Nih kak logonya...'})
+                                        break
 				case 'wait':
 					if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
                                         if (!isUser) return reply(mess.only.daftarB)
@@ -1375,7 +1614,7 @@ async function starts() {
 							client.sendMessage(from, res.video, video, {quoted: mek, caption: res.teks.trim()})
 						}).catch(err => {
 							reply(err)
-						})
+		      				})
 					} else {
 						reply('Foto aja mas')
 					}
