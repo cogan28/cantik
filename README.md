@@ -39,13 +39,11 @@
 ---
 
 ## Information
-- Change vcard contacts name on [this section](https://github.com/NazwaS/termux-whatsapp-bot/blob/main/index.js#L33)
-- Change vcard bot name on [this section](https://github.com/NazwaS/termux-whatsapp-bot/blob/main/index.js#L34)
+- Change vcard contacts name on [this section](https://github.com/NazwaS/termux-whatsapp-bot/blob/main/index.js#L78)
+- Change vcard bot name on [this section](https://github.com/NazwaS/termux-whatsapp-bot/blob/main/index.js#L79)
 - Change vcard WhatsApp id on [this section](https://github.com/NazwaS/termux-whatsapp-bot/blob/main/index.js#L35)
-- Change vcard WhatsApp number on [this section](https://github.com/NazwaS/termux-whatsapp-bot/blob/main/index.js#L35)
-- Change owner number id on [this section](https://github.com/NazwaS/termux-whatsapp-bot/blob/main/index.js#L153)
-- Change menu bot name on [this section](https://github.com/NazwaS/termux-whatsapp-bot/blob/main/src/help.js#L3)
-- Change menu owner name on [this section](https://github.com/NazwaS/termux-whatsapp-bot/blob/main/src/help.js#L7)
+- Change vcard WhatsApp number on [this section](https://github.com/NazwaS/termux-whatsapp-bot/blob/main/index.js#L80)
+- Change owner number id on [this section](https://github.com/NazwaS/termux-whatsapp-bot/blob/main/index.js#L80)
 - Change menu owner name2 on [this section](https://github.com/NazwaS/termux-whatsapp-bot/blob/main/src/help.js#125)
 
 ---
@@ -57,8 +55,8 @@ Follow The Steps Below!
 > termux-setup-storage
 (after that tap on permission)
 > apt install git -y
-> git clone https://github.com/cogan28/cantik
-> cd cantik
+> git clone https://github.com/NazwaS/termux-whatsapp-bot
+> cd termux-whatsapp-bot
 > bash install.sh
 ```
 
@@ -70,9 +68,10 @@ Follow The Steps Below!
 
 ## Features
 
-| NEW USER | YES
+| unique features | YES
 | :---------------------------------------------: | :-----------: |
 |  Register Name And Age|✅|
+|         Leveling    |✅|
 
 |  MAKER  |                                           YES |
 | :---------------------------------------------: | :-----------: |
@@ -90,6 +89,10 @@ Follow The Steps Below!
 | Ninja Logo Maker|✅|
 | Logo Wolf Maker|✅|
 | Logo Wolf Maker2|✅|
+| Neon Logo Maker|✅|
+| Neon Logo Maker2|✅|
+| Lion Logo Maker|✅|
+| Joker Logo Maker|✅|
 
 | MEDIA | YES |
 | :-----------------: | :-------: |
@@ -190,11 +193,14 @@ Follow The Steps Below!
 | KBBI|✅|
 | Fakta|✅|
 | Covid|✅|
+| Earthquake Information|✅|
+| Ping|✅|
 
 | 18+ | YES |
 | :-----------------: | :-------: |
 | Random Hentai|✅|
 | NSFW Neko|✅|
+| NSFW Trap|✅|
 
 | OWNER | YES |
 | :-----------------: | :-------: |
