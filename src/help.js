@@ -1,10 +1,10 @@
-const help = (prefix, botname, oname) => {
+const help = (prefix) => {
 	return `
-「 *Bot Cantik* 」
+「 *BOT_NAME* 」
 
 ◪ *INFO*
   ❏ Prefix: 「  ${prefix}  」
-  ❏ Creator: Style_Cogan
+  ❏ Creator: OWNER_NAME
 ◪ *ABOUT*
   │
   ├─ ❏ ${prefix}info
@@ -28,6 +28,10 @@ const help = (prefix, botname, oname) => {
   ├─ ❏ ${prefix}logowolf2
   ├─ ❏ ${prefix}phlogo
   ├─ ❏ ${prefix}glitch
+  ├─ ❏ ${prefix}neonlogo
+  ├─ ❏ ${prefix}neonlogo2
+  ├─ ❏ ${prefix}lionlogo
+  ├─ ❏ ${prefix}jokerlogo
   └─ ❏ ${prefix}quotemaker
 ◪ *MEDIA*
   │
@@ -75,6 +79,8 @@ const help = (prefix, botname, oname) => {
   ├─ ❏ ${prefix}leave
   ├─ ❏ ${prefix}welcome
   ├─ ❏ ${prefix}nsfw
+  ├─ ❏ ${prefix}leveling
+  ├─ ❏ ${prefix}level
   └─ ❏ ${prefix}ownergroup
 ◪ *SOUND*
   │
@@ -104,6 +110,7 @@ const help = (prefix, botname, oname) => {
 ◪ *18+*
   |
   ├─ ❏ ${prefix}randomhentai
+  ├─ ❏ ${prefix}nsfwtrap
   └─ ❏ ${prefix}nsfwneko
 ◪ *FUN*
   │
@@ -122,6 +129,8 @@ const help = (prefix, botname, oname) => {
   ├─ ❏ ${prefix}kbbi
   ├─ ❏ ${prefix}fakta
   ├─ ❏ ${prefix}infocuaca
+  ├─ ❏ ${prefix}infogempa
+  ├─ ❏ ${prefix}ping
   └─ ❏ ${prefix}covid
 ◪ *OWNER*
   │
@@ -138,7 +147,7 @@ const help = (prefix, botname, oname) => {
   ├─ ❏ ${prefix}exe
   ├─ ❏ ${prefix}qrcode
   └─ ❏ ${prefix}fml
-◪ *Style_Cogan2*
+◪ *OWNER_NAME2*
 `
 }
 
